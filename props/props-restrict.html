@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script type="text/javascript" src="../js/react.development.js"></script>
+  <script type="text/javascript" src="../js/react-dom.development.js"></script>
+  <script type="text/javascript" src="../js/babel.min.js"></script>
+  <script type="text/javascript" src="../js/prop-types.js"></script>
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="person1"></div>
+  <div id="person2"></div>
+  <div id="person3"></div>
+
+  <script type="text/babel">
+    class Person extends React.Component{
+      render() {
+
+        const {name,age,gender}=this.props
+        console.log(this)
+
+        // props为只读属性
+        // this.props.age=age+1
+
+        return (
+          <ul>
+            <li>姓名：{name}</li>
+            <li>性别：{gender}</li>
+            <li>年龄：{age+1}</li>
+          </ul>
+        )
+      }
+    }
+
+    Person.propTypes={
+      name:PropTypes.string.isRequired,
+      age:PropTypes.number,
+      gender:PropTypes.string,
+      speak:PropTypes.func
+    }
+
+    Person.defaultProps={
+      gender:'unknown',
+      age:18
+    }
+
+    ReactDOM.render(<Person name='luv' speak={speak}/>,document.getElementById('person1'));
+    ReactDOM.render(<Person name='hon'  age={19} gender='female'/>,document.getElementById('person2'));
+
+    const p = {name:'roy',age:23,gender:'male'}
+    ReactDOM.render(<Person {...p} />,document.getElementById('person3'));
+
+    function speak() { 
+      console.log('speaking')
+    }
+  </script>
+</body>
+
+</html>

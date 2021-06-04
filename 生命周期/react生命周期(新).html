@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="text/javascript" src="../js/js17.0.2/react.development.js"></script>
+    <script type="text/javascript" src="../js/js17.0.2//react-dom.development.js"></script>
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+    <script type="text/javascript" src="../js/prop-types.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="count"></div>
+    <script type="text/babel">
+      class Count extends React.Component {
+        constructor(props) {
+          console.log("constructor");
+          super(props);
+          this.state = { count: 0 };
+        }
+
+        add = () => {
+          const { count } = this.state;
+          this.setState({ count: count + 1 });
+        };
+
+        unmount = () => {
+          ReactDOM.unmountComponentAtNode(document.getElementById("count"));
+        };
+
+        force = () => {
+          this.forceUpdate();
+        };
+
+        static getDerivedStateFromProps(props, state) {
+          console.log("getDerivedStateFromProps", props, state);
+          return props, state;
+        }
+
+        componentDidMount() {
+          console.log("组件已经挂载");
+        }
+
+        componentWillUnmount() {
+          console.log("组件将要卸载");
+        }
+
+        shouldComponentUpdate() {
+          console.log("组件是否更新阀门");
+          return true;
+        }
+
+        componentDidUpdate() {
+          console.log("组件已经更新");
+        }
+
+        render() {
+          console.log("render");
+          const { count } = this.state;
+          return (
+            <div>
+              <h2>当前求和为:{count}</h2>
+              <button onClick={this.add}>点我+1</button>
+              <button onClick={this.unmount}>卸载组件</button>
+              <button onClick={this.force}>强制更新，不更改状态中数据</button>
+            </div>
+          );
+        }
+      }
+      
+      ReactDOM.render(<Count count="99" />, document.getElementById("count"));
+    </script>
+  </body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="text/javascript" src="../js/react.development.js"></script>
+    <script type="text/javascript" src="../js/react-dom.development.js"></script>
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+    <script type="text/javascript" src="../js/prop-types.js"></script>
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div id="frame"></div>
+
+    <script type="text/babel">
+      class Frame extends React.Component {
+        myRef1 = React.createRef();
+        myRef2 = React.createRef();
+
+        showData1 = () => {
+          alert(this.myRef1.current.value);
+        };
+
+        showData2 = (event) => {
+          alert(event.target.value);
+        };
+
+        render() {
+          return (
+            <div>
+              <input ref={this.myRef1} type="text" placeholder="click to alert" />
+              &nbsp;
+              <button ref="button" onClick={this.showData1}>
+                click to alert
+              </button>
+              &nbsp;
+              <input type="text" placeholder="onBlur to alert" onBlur={this.showData2} />
+            </div>
+          );
+        }
+      }
+
+      ReactDOM.render(<Frame />, document.getElementById("frame"));
+    </script>
+  </body>
+</html>
